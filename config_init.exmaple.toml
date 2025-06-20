@@ -1,0 +1,20 @@
+
+RpcEndpoint = "https://api.devnet.solana.com"
+KeystorePath = "./keys/solana_keys.json"
+
+LsdProgramID = "CEftts4KkpMPiJg9hccAgqZHvUc3t1hx9VssMUGkX3ec"
+SonicStakingProgramID = "CjZyANM4ZgPTa3cUfck3DGHvFZdyHmoHTSU2M9P7KKbA"
+SonicStakingPool = ""
+StakeManagerAddress = "921ksHLP7Hc4tENgziqz4xZFCiwzzuii6HEwUm9EnB1H"
+
+LsdTokenMintAddress = "6HbNJxx813dzV7or2y8xRjVf2kLZnrPCXaFunzGeeofW"
+SonicTokenMintAddress = "2PtjgnsDgzTCbaD9rRYFNeVTRREPLqk6cwsFm8pbncXe"
+
+
+FeePayerAccount = "ErCsmTQhM9qt17ce8XDTasKo76FEdg2scP2UX4VLxKDb"
+AdminAccount = "GgAy6GnqaPJUdGfCQGMgW2fGMMvmxc3E7a2oizFuCbhF"
+
+EraSeconds = 600
+
+SonicMinStakeAmount = 100000000000
+SonicStakingPeriodSeconds = 180

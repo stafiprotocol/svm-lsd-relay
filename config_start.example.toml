@@ -1,0 +1,9 @@
+RpcEndpoint = "https://api.devnet.solana.com"
+ApiEndPoint = ""
+LogFileDir = ""
+KeystorePath = "./keys/solana_keys.json"
+
+LsdProgramID = "8ufkkVBM6s52WRnhdF2yUCu1eNPnS123SoVKv8wyBFAp"
+StakeManagerAddress = "44agU7vrDhWnp7AEBKTBmzDYNKMASh7H2QFfwrgjbAbE"
+
+FeePayerAccount = "ErCsmTQhM9qt17ce8XDTasKo76FEdg2scP2UX4VLxKDb"

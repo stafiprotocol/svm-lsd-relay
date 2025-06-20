@@ -1,0 +1,793 @@
+{
+  "version": "0.1.0",
+  "name": "staking_program",
+  "instructions": [
+    {
+      "name": "initializeStakingPool",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "rentPayer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "adminTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "poolTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "InitializeStakingPoolParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "transferAdmin",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "newAdmin",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "acceptAdmin",
+      "accounts": [
+        {
+          "name": "pendingAdmin",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "config",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "ConfigParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "addRewards",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "adminTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "poolTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "stake",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "rentPayer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "poolTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakeAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "stakeAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "unstake",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "rentPayer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakeAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "unstakeAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "unstakeAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rentPayer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "unstakeAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "poolTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rentPayer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "stakingPool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakeAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "poolTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "restake",
+          "type": "bool"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "StakingPool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "creator",
+            "type": "publicKey"
+          },
+          {
+            "name": "admin",
+            "type": "publicKey"
+          },
+          {
+            "name": "pendingAdmin",
+            "type": "publicKey"
+          },
+          {
+            "name": "poolSeedBump",
+            "type": "u8"
+          },
+          {
+            "name": "tokenMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "minStakeAmount",
+            "type": "u64"
+          },
+          {
+            "name": "unbondingSeconds",
+            "type": "u64"
+          },
+          {
+            "name": "rewardRate",
+            "type": "u64"
+          },
+          {
+            "name": "rewardAlgorithm",
+            "type": {
+              "defined": "RewardAlgorithm"
+            }
+          },
+          {
+            "name": "totalStake",
+            "type": "u64"
+          },
+          {
+            "name": "totalReward",
+            "type": "u64"
+          },
+          {
+            "name": "lastRewardTimestamp",
+            "type": "u64"
+          },
+          {
+            "name": "rewardPerShare",
+            "type": "u128"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Reserved space for future upgrades. Do not use."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                256
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakeAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stakingPool",
+            "type": "publicKey"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "reward",
+            "type": "u64"
+          },
+          {
+            "name": "rewardDebt",
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Reserved space for future upgrades. Do not use."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                128
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UnstakeAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stakingPool",
+            "type": "publicKey"
+          },
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "withdrawableTimestamp",
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Reserved space for future upgrades. Do not use."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                128
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ConfigParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "minStakeAmount",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "rewardRate",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "unbondingSeconds",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "rewardAlgorithm",
+            "type": {
+              "option": {
+                "defined": "RewardAlgorithm"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeStakingPoolParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "rewardRate",
+            "type": "u64"
+          },
+          {
+            "name": "totalReward",
+            "type": "u64"
+          },
+          {
+            "name": "unbondingSeconds",
+            "type": "u64"
+          },
+          {
+            "name": "rewardAlgorithm",
+            "type": {
+              "defined": "RewardAlgorithm"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "RewardAlgorithm",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "FixedRate"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "EventClaim",
+      "fields": [
+        {
+          "name": "user",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "claimAmount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "stakingPool",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "EventStake",
+      "fields": [
+        {
+          "name": "staker",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "stakeAmount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "stakingPool",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "EventUnstake",
+      "fields": [
+        {
+          "name": "staker",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "unstakeAccount",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "unstakeAmount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "stakingPool",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "EventWithdraw",
+      "fields": [
+        {
+          "name": "user",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "unstakeAccount",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "withdrawAmount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "stakingPool",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "ProgramIdNotMatch",
+      "msg": "Program id not match"
+    },
+    {
+      "code": 6001,
+      "name": "RemainingAccountsNotMatch",
+      "msg": "Remaining accounts not match"
+    },
+    {
+      "code": 6002,
+      "name": "AdminNotMatch",
+      "msg": "Admin not match"
+    },
+    {
+      "code": 6003,
+      "name": "ParamsNotMatch",
+      "msg": "params not match"
+    },
+    {
+      "code": 6004,
+      "name": "StakeAmountTooLow",
+      "msg": "Stake amount too low"
+    },
+    {
+      "code": 6005,
+      "name": "BalanceNotEnough",
+      "msg": "Balance not enough"
+    },
+    {
+      "code": 6006,
+      "name": "CalculationFail",
+      "msg": "Calulation fail"
+    },
+    {
+      "code": 6007,
+      "name": "InvalidUnstakeAccount",
+      "msg": "Invalid unstake account"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidStakeAccount",
+      "msg": "Invalid stake account"
+    },
+    {
+      "code": 6009,
+      "name": "UnstakeAccountNotClaimable",
+      "msg": "Unstake account not claimable"
+    },
+    {
+      "code": 6010,
+      "name": "UnstakeAccountAmountZero",
+      "msg": "Unstake account amount zero"
+    },
+    {
+      "code": 6011,
+      "name": "ClaimAmountZero",
+      "msg": "Claim amount zero"
+    },
+    {
+      "code": 6012,
+      "name": "PoolBalanceNotEnough",
+      "msg": "Pool balance not enough"
+    },
+    {
+      "code": 6013,
+      "name": "UnstakeAmountIsZero",
+      "msg": "Unstake amount is zero"
+    },
+    {
+      "code": 6014,
+      "name": "TokenMintAccountNotMatch",
+      "msg": "Roken mint account not match"
+    },
+    {
+      "code": 6015,
+      "name": "MintAuthorityNotMatch",
+      "msg": "Mint authority not match"
+    },
+    {
+      "code": 6016,
+      "name": "PendingAdminNotMatch",
+      "msg": "Pending admin not match"
+    }
+  ]
+}
