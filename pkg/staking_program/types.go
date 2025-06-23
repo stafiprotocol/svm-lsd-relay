@@ -148,6 +148,7 @@ type InitializeStakingPoolParams struct {
 	TotalReward      uint64
 	UnbondingSeconds uint64
 	RewardAlgorithm  RewardAlgorithm
+	Index            uint8
 }
 
 func (obj InitializeStakingPoolParams) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
@@ -168,6 +169,11 @@ func (obj InitializeStakingPoolParams) MarshalWithEncoder(encoder *ag_binary.Enc
 	}
 	// Serialize `RewardAlgorithm` param:
 	err = encoder.Encode(obj.RewardAlgorithm)
+	if err != nil {
+		return err
+	}
+	// Serialize `Index` param:
+	err = encoder.Encode(obj.Index)
 	if err != nil {
 		return err
 	}
@@ -192,6 +198,11 @@ func (obj *InitializeStakingPoolParams) UnmarshalWithDecoder(decoder *ag_binary.
 	}
 	// Deserialize `RewardAlgorithm`:
 	err = decoder.Decode(&obj.RewardAlgorithm)
+	if err != nil {
+		return err
+	}
+	// Deserialize `Index`:
+	err = decoder.Decode(&obj.Index)
 	if err != nil {
 		return err
 	}

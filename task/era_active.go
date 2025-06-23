@@ -32,8 +32,13 @@ func (task *Task) EraActive(stakeManager *lsd_program.StakeManager) error {
 		}
 	}
 	var stakeManagerStakingTokenAccount solana.PublicKey
+	var stakingPoolStakingTokenAccount solana.PublicKey
 	if task.tokenProgramId == solana.Token2022ProgramID {
 		stakeManagerStakingTokenAccount, _, err = utils.FindAssociatedToken2022Address(task.stakeManager, stakeManager.StakingTokenMint)
+		if err != nil {
+			return err
+		}
+		stakingPoolStakingTokenAccount, _, err = utils.FindAssociatedToken2022Address(stakeManager.StakingPool, stakeManager.StakingTokenMint)
 		if err != nil {
 			return err
 		}
@@ -42,10 +47,10 @@ func (task *Task) EraActive(stakeManager *lsd_program.StakeManager) error {
 		if err != nil {
 			return err
 		}
-	}
-	stakingPoolTokenAccount, _, err := solana.FindAssociatedTokenAddress(stakeManager.StakingPool, stakeManager.StakingTokenMint)
-	if err != nil {
-		return err
+		stakingPoolStakingTokenAccount, _, err = solana.FindAssociatedTokenAddress(stakeManager.StakingPool, stakeManager.StakingTokenMint)
+		if err != nil {
+			return err
+		}
 	}
 	stakingStakeAccount, _, err := solana.FindProgramAddress([][]byte{utils.StakeAccountSeed, task.stakeManager.Bytes()}, task.stakingProgram)
 	if err != nil {
@@ -64,7 +69,7 @@ func (task *Task) EraActive(stakeManager *lsd_program.StakeManager) error {
 			stakeManagerStakingTokenAccount,
 			platformFeeRecipient,
 			stakeManager.StakingPool,
-			stakingPoolTokenAccount,
+			stakingPoolStakingTokenAccount,
 			stakingStakeAccount,
 			task.stakingProgram,
 			task.tokenProgramId,

@@ -13,7 +13,7 @@ import (
 // Withdraw is the `withdraw` instruction.
 type Withdraw struct {
 
-	// [0] = [WRITE] user
+	// [0] = [SIGNER] user
 	//
 	// [1] = [WRITE, SIGNER] rentPayer
 	//
@@ -45,7 +45,7 @@ func NewWithdrawInstructionBuilder() *Withdraw {
 
 // SetUserAccount sets the "user" account.
 func (inst *Withdraw) SetUserAccount(user ag_solanago.PublicKey) *Withdraw {
-	inst.AccountMetaSlice[0] = ag_solanago.Meta(user).WRITE()
+	inst.AccountMetaSlice[0] = ag_solanago.Meta(user).SIGNER()
 	return inst
 }
 

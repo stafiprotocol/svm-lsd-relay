@@ -397,6 +397,10 @@
             "type": "publicKey"
           },
           {
+            "name": "index",
+            "type": "u8"
+          },
+          {
             "name": "admin",
             "type": "publicKey"
           },
@@ -595,6 +599,10 @@
             "type": {
               "defined": "RewardAlgorithm"
             }
+          },
+          {
+            "name": "index",
+            "type": "u8"
           }
         ]
       }
@@ -777,7 +785,7 @@
     {
       "code": 6014,
       "name": "TokenMintAccountNotMatch",
-      "msg": "Roken mint account not match"
+      "msg": "Token mint account not match"
     },
     {
       "code": 6015,

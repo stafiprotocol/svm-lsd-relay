@@ -16,7 +16,6 @@ const (
 	flagConfigPath   = "config"
 	flagStakeManager = "stake_manager"
 	flagRpcEndPoint  = "rpc_endpoint"
-	flagApiEndPoint  = "api_endpoint"
 	flagKeystorePath = "keystore_path"
 	flagExportTx     = "export"
 

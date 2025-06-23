@@ -17,9 +17,6 @@ import (
 	"golang.org/x/time/rate"
 )
 
-var stakeManagerSeed = "stake_manager_seed_%d"
-var stakeManagerAccountLength = uint64(100000)
-
 func stakeManagerInitCmd() *cobra.Command {
 
 	var cmd = &cobra.Command{

@@ -94,9 +94,12 @@ func createTokenMetadataCmd() *cobra.Command {
 				5,                       // limit of requests per time frame
 			))
 
-			lsdProgramID := solana.MustPublicKeyFromBase58(cfg.LsdProgramID)
 			stakeManagerPubkey := solana.MustPublicKeyFromBase58(cfg.StakeManagerAddress)
-
+			stakeManagerAccountDetail, err := rpcClient.GetAccountInfo(context.Background(), stakeManagerPubkey)
+			if err != nil {
+				return err
+			}
+			lsdProgramID := stakeManagerAccountDetail.Value.Owner
 			lsd_program.SetProgramID(lsdProgramID)
 
 			stakeManagerDetail, err := utils.GetSvmLsdStakeManager(rpcClient, stakeManagerPubkey)

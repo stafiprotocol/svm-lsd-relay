@@ -24,7 +24,6 @@ type ConfigTransferAdmin struct {
 	RpcEndpoint  string // rpc endpoint
 	KeystorePath string
 
-	LsdProgramID        string
 	StakeManagerAddress string
 
 	FeePayerAccount string
@@ -56,7 +55,6 @@ type ConfigSetStakeManager struct {
 	RpcEndpoint  string // rpc endpoint
 	KeystorePath string
 
-	LsdProgramID        string
 	StakeManagerAddress string
 
 	FeePayerAccount string
@@ -68,12 +66,10 @@ type ConfigSetStakeManager struct {
 }
 
 type ConfigStart struct {
-	RpcEndpoint  string // rpc endpoint
-	ApiEndPoint  string // ssp api endpoint
 	LogFileDir   string
+	RpcEndpoint  string // rpc endpoint
 	KeystorePath string
 
-	LsdProgramID        string
 	StakeManagerAddress string
 
 	FeePayerAccount string
@@ -83,7 +79,6 @@ type ConfigCreateMetadata struct {
 	RpcEndpoint  string // rpc endpoint
 	KeystorePath string
 
-	LsdProgramID        string
 	StakeManagerAddress string
 
 	FeePayerAccount string

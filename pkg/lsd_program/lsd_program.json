@@ -310,8 +310,8 @@
       "accounts": [
         {
           "name": "user",
-          "isMut": true,
-          "isSigner": false
+          "isMut": false,
+          "isSigner": true
         },
         {
           "name": "rentPayer",
@@ -459,7 +459,7 @@
         {
           "name": "stakingUnstakeAccount",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "stakingProgram",
@@ -1145,21 +1145,26 @@
     },
     {
       "code": 6021,
+      "name": "SpStakeAccountNotMatch",
+      "msg": "staking_program stake account not match"
+    },
+    {
+      "code": 6022,
       "name": "MintAuthorityNotMatch",
       "msg": "Mint authority not match"
     },
     {
-      "code": 6022,
+      "code": 6023,
       "name": "FreezeAuthorityNotMatch",
       "msg": "Freeze authority not match"
     },
     {
-      "code": 6023,
+      "code": 6024,
       "name": "MintSupplyNotEmpty",
       "msg": "Mint supply not empty"
     },
     {
-      "code": 6024,
+      "code": 6025,
       "name": "PendingAdminNotMatch",
       "msg": "Pending admin not match"
     }

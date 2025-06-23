@@ -19,7 +19,7 @@ func startCmd() *cobra.Command {
 
 	var cmd = &cobra.Command{
 		Use:   "start",
-		Short: "Start sonic lsd relay",
+		Short: "Start svm lsd relay",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			configPath, err := cmd.Flags().GetString(flagConfigPath)

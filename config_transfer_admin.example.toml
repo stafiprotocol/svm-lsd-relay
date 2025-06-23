@@ -1,7 +1,6 @@
 RpcEndpoint = "https://api.testnet.sonic.game"
 KeystorePath = "./keys/solana_keys.json"
 
-LsdProgramID = "DyA8s2ZrxpAcVevwYmEXZfddsKxAELo1ZjQtYpKRKzTz"
 StakeManagerAddress = "8N98HMgTrUEbgQyY9guDbxULEFBaf85Wg2teN7pmvdZH"
 
 FeePayerAccount = "BMPkUHJ98z8iPx9zPNg4n6AbY6J2yAyGY4te5EP1PDdq"

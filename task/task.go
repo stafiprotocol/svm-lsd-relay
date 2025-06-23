@@ -21,7 +21,7 @@ import (
 type Task struct {
 	stop           chan struct{}
 	cfg            config.ConfigStart
-	lsdProgramID   solana.PublicKey
+	lsdProgram     solana.PublicKey
 	stakingProgram solana.PublicKey
 	stakeManager   solana.PublicKey
 
@@ -58,8 +58,13 @@ func (task *Task) Start() error {
 	))
 	task.client = rpcClient
 
-	task.lsdProgramID = solana.MustPublicKeyFromBase58(task.cfg.LsdProgramID)
 	task.stakeManager = solana.MustPublicKeyFromBase58(task.cfg.StakeManagerAddress)
+	stakeManagerDetail, err := rpcClient.GetAccountInfo(context.Background(), task.stakeManager)
+	if err != nil {
+		return err
+	}
+	task.lsdProgram = stakeManagerDetail.Value.Owner
+
 	stakeManager, err := utils.GetSvmLsdStakeManager(task.client, task.stakeManager)
 	if err != nil {
 		return err
@@ -75,9 +80,9 @@ func (task *Task) Start() error {
 	}
 	task.tokenProgramId = stakingTokenMintAccount.Value.Owner
 
-	lsd_program.SetProgramID(task.lsdProgramID)
+	lsd_program.SetProgramID(task.lsdProgram)
 
-	task.appendHandlers(task.EraNew, task.EraWithdraw, task.EraBond,task.EraUnbond, task.EraActive)
+	task.appendHandlers(task.EraNew, task.EraWithdraw, task.EraBond, task.EraUnbond, task.EraActive)
 
 	SafeGoWithRestart(task.handler)
 	return nil

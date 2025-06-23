@@ -21,7 +21,7 @@ type EraUnbond struct {
 	//
 	// [3] = [WRITE] stakingStakeAccount
 	//
-	// [4] = [WRITE] stakingUnstakeAccount
+	// [4] = [WRITE, SIGNER] stakingUnstakeAccount
 	//
 	// [5] = [] stakingProgram
 	//
@@ -83,7 +83,7 @@ func (inst *EraUnbond) GetStakingStakeAccountAccount() *ag_solanago.AccountMeta 
 
 // SetStakingUnstakeAccountAccount sets the "stakingUnstakeAccount" account.
 func (inst *EraUnbond) SetStakingUnstakeAccountAccount(stakingUnstakeAccount ag_solanago.PublicKey) *EraUnbond {
-	inst.AccountMetaSlice[4] = ag_solanago.Meta(stakingUnstakeAccount).WRITE()
+	inst.AccountMetaSlice[4] = ag_solanago.Meta(stakingUnstakeAccount).WRITE().SIGNER()
 	return inst
 }
 

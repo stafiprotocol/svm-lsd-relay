@@ -13,16 +13,16 @@ get:
 	go mod tidy && go mod download
 
 build:
-	@echo " > \033[32mBuilding sonic-lsd-relay...\033[0m "
-	go build -mod readonly $(BUILD_FLAGS) -o build/sonic-lsd-relay main.go
+	@echo " > \033[32mBuilding svm-lsd-relay...\033[0m "
+	go build -mod readonly $(BUILD_FLAGS) -o build/svm-lsd-relay main.go
 
 install: 
-	@echo " > \033[32mInstalling sonic-lsd-relay...\033[0m "
+	@echo " > \033[32mInstalling svm-lsd-relay...\033[0m "
 	go install -mod readonly $(BUILD_FLAGS) ./...
 
 
 build-linux:
-	@GOOS=linux GOARCH=amd64 go build --mod readonly $(BUILD_FLAGS) -o ./build/sonic-lsd-relay main.go
+	@GOOS=linux GOARCH=amd64 go build --mod readonly $(BUILD_FLAGS) -o ./build/svm-lsd-relay main.go
 
 
 clean:
@@ -37,6 +37,7 @@ fmt :
 anchor:
 	@echo "  >  \033[32mGenerating anchor bindings...\033[0m "
 	anchor-go -src ./pkg/lsd_program/lsd_program.json -dst ./pkg/lsd_program/
+	anchor-go -src ./pkg/staking_program/staking_program.json -dst ./pkg/staking_program/
 
 get-lint:
 	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s latest

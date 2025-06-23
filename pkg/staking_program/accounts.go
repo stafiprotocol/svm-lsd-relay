@@ -10,6 +10,7 @@ import (
 
 type StakingPool struct {
 	Creator             ag_solanago.PublicKey
+	Index               uint8
 	Admin               ag_solanago.PublicKey
 	PendingAdmin        ag_solanago.PublicKey
 	PoolSeedBump        uint8
@@ -37,6 +38,11 @@ func (obj StakingPool) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error
 	}
 	// Serialize `Creator` param:
 	err = encoder.Encode(obj.Creator)
+	if err != nil {
+		return err
+	}
+	// Serialize `Index` param:
+	err = encoder.Encode(obj.Index)
 	if err != nil {
 		return err
 	}
@@ -124,6 +130,11 @@ func (obj *StakingPool) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err er
 	}
 	// Deserialize `Creator`:
 	err = decoder.Decode(&obj.Creator)
+	if err != nil {
+		return err
+	}
+	// Deserialize `Index`:
+	err = decoder.Decode(&obj.Index)
 	if err != nil {
 		return err
 	}
