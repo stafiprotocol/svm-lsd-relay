@@ -50,3 +50,5 @@ config_build_upgrade_tx.toml
 config_transfer_token.toml
 config_create_token_metadata.toml
 config_next.toml
+config_init_staking_pool.toml
+config_init_stake_manager.toml

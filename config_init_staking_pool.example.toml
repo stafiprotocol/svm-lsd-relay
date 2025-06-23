@@ -1,0 +1,15 @@
+
+RpcEndpoint = "https://api.devnet.solana.com"
+KeystorePath = "./keys/solana_keys.json"
+
+StakingProgramID = "DjzuM5GR2NLjwcXAvzC5wqj8oTZD71FR5suCDGnx3GmB"
+StakingTokenMint = "7N3HQ8P73rxgZe426XSXGejxtL5KbUvHcPup2KTKvGWf"
+
+FeePayerAccount = "ErCsmTQhM9qt17ce8XDTasKo76FEdg2scP2UX4VLxKDb"
+AdminAccount = "GgAy6GnqaPJUdGfCQGMgW2fGMMvmxc3E7a2oizFuCbhF"
+
+RewardRate = 1000
+TotalReward = 10000000000
+UnbondingSeconds = 600
+RewardAlgorithm = 0
+Index = 0

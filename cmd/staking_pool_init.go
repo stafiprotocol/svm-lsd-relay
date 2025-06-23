@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"svm-lsd-relay/pkg/config"
-	"svm-lsd-relay/pkg/lsd_program"
+	"svm-lsd-relay/pkg/staking_program"
 	"svm-lsd-relay/pkg/utils"
 	"svm-lsd-relay/pkg/vault"
 
@@ -17,11 +17,11 @@ import (
 	"golang.org/x/time/rate"
 )
 
-func stakeManagerInitCmd() *cobra.Command {
+func stakingPoolInitCmd() *cobra.Command {
 
 	var cmd = &cobra.Command{
 		Use:   "init",
-		Short: "Init stake manager",
+		Short: "Init staking pool",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			configPath, err := cmd.Flags().GetString(flagConfigPath)
@@ -30,7 +30,7 @@ func stakeManagerInitCmd() *cobra.Command {
 			}
 			fmt.Printf("config path: %s\n", configPath)
 
-			cfg, err := config.LoadConfig[config.ConfigInitStakeManager](configPath)
+			cfg, err := config.LoadConfig[config.ConfigInitStakingPool](configPath)
 			if err != nil {
 				return err
 			}
@@ -58,10 +58,9 @@ func stakeManagerInitCmd() *cobra.Command {
 				5,                       // limit of requests per time frame
 			))
 
-			lsdProgramID := solana.MustPublicKeyFromBase58(cfg.LsdProgramID)
-			stakingPool := solana.MustPublicKeyFromBase58(cfg.StakingPoolAddress)
-
-			lsd_program.SetProgramID(lsdProgramID)
+			stakingProgramID := solana.MustPublicKeyFromBase58(cfg.StakingProgramID)
+			stakingTokenMint := solana.MustPublicKeyFromBase58(cfg.StakingTokenMint)
+			staking_program.SetProgramID(stakingProgramID)
 
 			feePayerAccount, exist := privateKeyMap[cfg.FeePayerAccount]
 			if !exist {
@@ -72,49 +71,53 @@ func stakeManagerInitCmd() *cobra.Command {
 				return fmt.Errorf("admin not exit in vault")
 			}
 
-			stakingPoolDetail, err := utils.GetSvmStakingPool(rpcClient, stakingPool)
-			if err != nil {
-				return err
-			}
-
-			stakingTokenMint := stakingPoolDetail.TokenMint
-			stakeManager, _, err := solana.FindProgramAddress([][]byte{utils.StakeMangerSeed, adminAccount.PublicKey().Bytes(), []byte{cfg.Index}}, lsdProgramID)
-			if err != nil {
-				return err
-			}
-			lsdTokenMint, _, err := solana.FindProgramAddress([][]byte{utils.TokenMintSeed, adminAccount.PublicKey().Bytes(), []byte{cfg.Index}}, lsdProgramID)
-			if err != nil {
-				return err
-			}
-
 			stakingTokenMintDetail, err := rpcClient.GetAccountInfo(context.Background(), stakingTokenMint)
 			if err != nil {
 				return err
 			}
 
+			stakingPool, _, err := solana.FindProgramAddress([][]byte{utils.StakePoolSeed, stakingTokenMint.Bytes(), adminAccount.PublicKey().Bytes(), {cfg.Index}}, stakingProgramID)
+			if err != nil {
+				return err
+			}
+
 			tokenProgramId := stakingTokenMintDetail.Value.Owner
-			var stakeManagerStakingTokenAccount solana.PublicKey
+
+			var adminTokenAccount solana.PublicKey
+			var stakingPoolTokenAccount solana.PublicKey
 			if tokenProgramId == solana.Token2022ProgramID {
-				stakeManagerStakingTokenAccount, _, err = utils.FindAssociatedToken2022Address(stakeManager, stakingTokenMint)
+				adminTokenAccount, _, err = utils.FindAssociatedToken2022Address(adminAccount.PublicKey(), stakingTokenMint)
+				if err != nil {
+					return err
+				}
+				stakingPoolTokenAccount, _, err = utils.FindAssociatedToken2022Address(stakingPool, stakingTokenMint)
 				if err != nil {
 					return err
 				}
 			} else {
-				stakeManagerStakingTokenAccount, _, err = solana.FindAssociatedTokenAddress(stakeManager, stakingTokenMint)
+
+				adminTokenAccount, _, err = solana.FindAssociatedTokenAddress(adminAccount.PublicKey(), stakingTokenMint)
 				if err != nil {
 					return err
 				}
+				stakingPoolTokenAccount, _, err = solana.FindAssociatedTokenAddress(stakingPool, stakingTokenMint)
+				if err != nil {
+					return err
+				}
+
 			}
 
-			fmt.Println("lsdProgramID:", lsdProgramID.String())
+			fmt.Println("stakingProgramID:", stakingProgramID.String())
 			fmt.Println("stakingPool:", stakingPool.String())
 			fmt.Println("stakingTokenMint:", stakingTokenMint.String())
-			fmt.Println("stakeManager:", stakeManager.String())
-			fmt.Println("lsdTokenMint:", lsdTokenMint.String())
 			fmt.Println("admin", adminAccount.PublicKey().String())
 			fmt.Println("feePayer:", feePayerAccount.PublicKey().String())
-			fmt.Println("eraSeconds:", cfg.EraSeconds)
+			fmt.Println("rewardRate:", cfg.RewardRate)
+			fmt.Println("totalReward:", cfg.TotalReward)
+			fmt.Println("unbondingSeconds:", cfg.UnbondingSeconds)
+			fmt.Println("rewardAlgorithm:", cfg.RewardAlgorithm)
 			fmt.Println("index:", cfg.Index)
+
 		Out:
 			for {
 				fmt.Println("\ncheck account info, then press (y/n) to continue:")
@@ -131,11 +134,15 @@ func stakeManagerInitCmd() *cobra.Command {
 				}
 			}
 
-			initIns := lsd_program.NewInitializeStakeManagerInstruction(lsd_program.InitializeStakeManagerParams{
-				EraSeconds: cfg.EraSeconds,
-				Index:      cfg.Index,
-			}, adminAccount.PublicKey(), feePayerAccount.PublicKey(), stakeManager, stakingPool, lsdTokenMint, stakingTokenMint,
-				stakeManagerStakingTokenAccount, tokenProgramId, solana.SPLAssociatedTokenAccountProgramID, solana.SystemProgramID)
+			initIns := staking_program.NewInitializeStakingPoolInstruction(
+				staking_program.InitializeStakingPoolParams{
+					RewardRate:       cfg.RewardRate,
+					TotalReward:      cfg.TotalReward,
+					UnbondingSeconds: cfg.UnbondingSeconds,
+					RewardAlgorithm:  cfg.RewardAlgorithm,
+					Index:            cfg.Index,
+				}, adminAccount.PublicKey(), feePayerAccount.PublicKey(), stakingTokenMint, stakingPool, adminTokenAccount, stakingPoolTokenAccount,
+				solana.TokenProgramID, solana.SPLAssociatedTokenAccountProgramID, solana.SystemProgramID)
 
 			latestBlockHashRes, err := rpcClient.GetLatestBlockhash(context.Background(), rpc.CommitmentConfirmed)
 			if err != nil {
@@ -168,7 +175,7 @@ func stakeManagerInitCmd() *cobra.Command {
 				return fmt.Errorf("waitForConfirmation error, err: %s", err.Error())
 			}
 
-			fmt.Println("initializeStakeManager txHash:", tx.Signatures[0].String())
+			fmt.Println("initializeStakingPool txHash:", tx.Signatures[0].String())
 
 			return nil
 		},

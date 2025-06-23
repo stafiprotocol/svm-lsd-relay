@@ -274,7 +274,7 @@
         {
           "name": "user",
           "isMut": false,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "rentPayer",
@@ -330,7 +330,7 @@
         {
           "name": "user",
           "isMut": false,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "rentPayer",

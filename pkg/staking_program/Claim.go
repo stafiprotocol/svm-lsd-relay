@@ -14,7 +14,7 @@ import (
 type Claim struct {
 	Restake *bool
 
-	// [0] = [] user
+	// [0] = [SIGNER] user
 	//
 	// [1] = [WRITE, SIGNER] rentPayer
 	//
@@ -52,7 +52,7 @@ func (inst *Claim) SetRestake(restake bool) *Claim {
 
 // SetUserAccount sets the "user" account.
 func (inst *Claim) SetUserAccount(user ag_solanago.PublicKey) *Claim {
-	inst.AccountMetaSlice[0] = ag_solanago.Meta(user)
+	inst.AccountMetaSlice[0] = ag_solanago.Meta(user).SIGNER()
 	return inst
 }
 

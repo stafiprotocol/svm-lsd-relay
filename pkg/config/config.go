@@ -3,9 +3,27 @@ package config
 import (
 	"fmt"
 	"os"
+	"svm-lsd-relay/pkg/staking_program"
 
 	"github.com/BurntSushi/toml"
 )
+
+type ConfigInitStakingPool struct {
+	RpcEndpoint  string // rpc endpoint
+	KeystorePath string
+
+	StakingProgramID string
+	StakingTokenMint string
+
+	FeePayerAccount string
+	AdminAccount    string
+
+	RewardRate       uint64
+	TotalReward      uint64
+	UnbondingSeconds uint64
+	RewardAlgorithm  staking_program.RewardAlgorithm
+	Index            uint8
+}
 
 type ConfigInitStakeManager struct {
 	RpcEndpoint  string // rpc endpoint
@@ -17,6 +35,7 @@ type ConfigInitStakeManager struct {
 	FeePayerAccount string
 	AdminAccount    string
 
+	Index      uint8
 	EraSeconds int64
 }
 

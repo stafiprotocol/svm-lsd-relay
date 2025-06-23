@@ -38,6 +38,7 @@ func NewRootCmd() *cobra.Command {
 	rootCmd.AddCommand(
 		keysCmd(),
 		stakeManagerCmd(),
+		stakingPoolCmd(),
 		startCmd(),
 		versionCmd(),
 		buildUpgradeProgramTx(),
@@ -74,6 +75,18 @@ func stakeManagerCmd() *cobra.Command {
 		stakeManagerDetailCmd(),
 		stakeManagerTransferAdminCmd(),
 		createTokenMetadataCmd(),
+	)
+	return cmd
+}
+
+func stakingPoolCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "staking-pool",
+		Short: "Staking pool operation",
+	}
+
+	cmd.AddCommand(
+		stakingPoolInitCmd(),
 	)
 	return cmd
 }
