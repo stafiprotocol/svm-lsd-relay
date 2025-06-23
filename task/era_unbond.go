@@ -66,7 +66,7 @@ func (task *Task) EraUnbond(stakeManager *lsd_program.StakeManager) error {
 		return fmt.Errorf("sign failed, err: %s", err.Error())
 	}
 
-	logrus.Infof("EraUnbond will send tx: %s, bond amount: %d", tx.Signatures[0], stakeManager.PendingBond)
+	logrus.Infof("EraUnbond will send tx: %s,unbond amount: %d", tx.Signatures[0], stakeManager.PendingUnbond-stakeManager.PendingBond)
 
 	_, err = utils.SendAndWaitForConfirmation(task.client, tx, latestBlockHashRes.Value.LastValidBlockHeight)
 	if err != nil {
