@@ -21,6 +21,7 @@ type StakingPool struct {
 	RewardAlgorithm     RewardAlgorithm
 	TotalStake          uint64
 	TotalReward         uint64
+	UndistributedReward uint64
 	LastRewardTimestamp uint64
 	RewardPerShare      ag_binary.Uint128
 
@@ -93,6 +94,11 @@ func (obj StakingPool) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error
 	}
 	// Serialize `TotalReward` param:
 	err = encoder.Encode(obj.TotalReward)
+	if err != nil {
+		return err
+	}
+	// Serialize `UndistributedReward` param:
+	err = encoder.Encode(obj.UndistributedReward)
 	if err != nil {
 		return err
 	}
@@ -185,6 +191,11 @@ func (obj *StakingPool) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err er
 	}
 	// Deserialize `TotalReward`:
 	err = decoder.Decode(&obj.TotalReward)
+	if err != nil {
+		return err
+	}
+	// Deserialize `UndistributedReward`:
+	err = decoder.Decode(&obj.UndistributedReward)
 	if err != nil {
 		return err
 	}

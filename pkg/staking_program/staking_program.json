@@ -443,6 +443,10 @@
             "type": "u64"
           },
           {
+            "name": "undistributedReward",
+            "type": "u64"
+          },
+          {
             "name": "lastRewardTimestamp",
             "type": "u64"
           },
@@ -613,7 +617,10 @@
         "kind": "enum",
         "variants": [
           {
-            "name": "FixedRate"
+            "name": "FixedPerTokenPerSecond"
+          },
+          {
+            "name": "FixedTotalPerSecond"
           }
         ]
       }

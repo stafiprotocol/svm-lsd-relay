@@ -212,13 +212,16 @@ func (obj *InitializeStakingPoolParams) UnmarshalWithDecoder(decoder *ag_binary.
 type RewardAlgorithm ag_binary.BorshEnum
 
 const (
-	RewardAlgorithmFixedRate RewardAlgorithm = iota
+	RewardAlgorithmFixedPerTokenPerSecond RewardAlgorithm = iota
+	RewardAlgorithmFixedTotalPerSecond
 )
 
 func (value RewardAlgorithm) String() string {
 	switch value {
-	case RewardAlgorithmFixedRate:
-		return "FixedRate"
+	case RewardAlgorithmFixedPerTokenPerSecond:
+		return "FixedPerTokenPerSecond"
+	case RewardAlgorithmFixedTotalPerSecond:
+		return "FixedTotalPerSecond"
 	default:
 		return ""
 	}
