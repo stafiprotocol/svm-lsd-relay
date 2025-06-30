@@ -1,1 +1,5 @@
 # svm-lsd-relay
+
+Staking Vault as a Service is designed to accelerate the adoption of liquid staking while significantly reducing the technical and operational burdens on token teams. With this service, StaFi empowers any token ecosystem to unlock staking utility, increase token demand, and enable sustainable rewards — all with composability into the broader DeFi landscape.
+
+Given the limitation of smart contracts, they are not self-executing, and requiring an external force to trigger their functions. SVM LSD Relay is an offchain service that drives LSD network to properly process its own internal states, such as dealing with delegating, undelegating, distributing rewards and recalculating the rate between LST and its original token. We introduce era concept to define how often in epochs the smart contract should be called. The new era process is permissionless, showcasing the decentralized nature of the StaFi's SVM Liquid Staking module, allowing anyone to trigger the new era process.

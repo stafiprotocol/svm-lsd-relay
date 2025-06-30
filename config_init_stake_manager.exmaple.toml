@@ -1,0 +1,14 @@
+
+#RpcEndpoint = "https://api.devnet.solana.com"
+RpcEndpoint = "https://api.testnet.sonic.game"
+KeystorePath = "./keys/solana_keys.json"
+
+LsdProgramID = "6CibNMfXo1B1BpEz9Z3E4xoHPzaQDQTeGpkwLTtsrNq1"
+
+StakingPoolAddress = "FGA9W7ZpEE23QzVkvGdbrQHvfBHqJqMXkuhaf8hVdQZQ"
+
+FeePayerAccount = "ErCsmTQhM9qt17ce8XDTasKo76FEdg2scP2UX4VLxKDb"
+AdminAccount = "GgAy6GnqaPJUdGfCQGMgW2fGMMvmxc3E7a2oizFuCbhF"
+
+EraSeconds = 600
+Index = 0

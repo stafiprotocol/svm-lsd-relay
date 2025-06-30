@@ -1,0 +1,8 @@
+RpcEndpoint = "https://api.testnet.sonic.game"
+KeystorePath = "./keys/solana_keys.json"
+
+StakeManagerAddress = "8N98HMgTrUEbgQyY9guDbxULEFBaf85Wg2teN7pmvdZH"
+
+FeePayerAccount = "BMPkUHJ98z8iPx9zPNg4n6AbY6J2yAyGY4te5EP1PDdq"
+AdminAccount = "GgAy6GnqaPJUdGfCQGMgW2fGMMvmxc3E7a2oizFuCbhF"
+NewAdminAccount = "2s33WZz38hdcmVfgY6pKtpVddHYtc8EweCAP9UgvwyaH"

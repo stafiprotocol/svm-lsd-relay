@@ -1,0 +1,7 @@
+RpcEndpoint = "https://api.testnet.sonic.game"
+
+LsdProgramID = "DyA8s2ZrxpAcVevwYmEXZfddsKxAELo1ZjQtYpKRKzTz"
+FeePayerAccount = "Gi2ommjX7QKTHPsyr96XSPoBDzzNnS4rtjMp4B4eEXas"
+
+BufferAccount = "8FYJs2ChoEW7hAyzKzppwj9tmcTb6eaGHoCgqSApStRh"
+UpgradeAuthority = "1U6E64e893D8AgK6JBFjzFFAWupkzBjhUASg6Py8HZv"

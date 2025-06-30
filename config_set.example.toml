@@ -1,0 +1,14 @@
+
+RpcEndpoint = "https://api.devnet.solana.com"
+KeystorePath = "./keys/solana_keys.json"
+
+StakeManagerAddress = "FrTfbJVT7uHgt4ejMqgCD5vLCgJCk5ewkuJghtzGRGA1"
+
+FeePayerAccount = "ErCsmTQhM9qt17ce8XDTasKo76FEdg2scP2UX4VLxKDb"
+AdminAccount = "GgAy6GnqaPJUdGfCQGMgW2fGMMvmxc3E7a2oizFuCbhF"
+
+RateChangeLimit = 0
+
+# MinStakeAmount 
+# PlatformFeeCommission 
+# RateChagneLimit

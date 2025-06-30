@@ -1,0 +1,7 @@
+RpcEndpoint = "https://api.testnet.sonic.game"
+FeePayerAccount = "Gi2ommjX7QKTHPsyr96XSPoBDzzNnS4rtjMp4B4eEXas"
+
+Mint = "H43FkMYZ1MBJETxHEzYwZAg8pQU8dESRaF8jAVnUUcow"
+FromAddress = "1U6E64e893D8AgK6JBFjzFFAWupkzBjhUASg6Py8HZv"
+ToAddress = "Gi2ommjX7QKTHPsyr96XSPoBDzzNnS4rtjMp4B4eEXas"
+Amount  = 0.1
