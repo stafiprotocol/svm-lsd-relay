@@ -74,7 +74,7 @@ func stakeManagerInitCmd() *cobra.Command {
 
 			stakingPoolDetail, err := utils.GetSvmStakingPool(rpcClient, stakingPool)
 			if err != nil {
-				return err
+				return fmt.Errorf("GetSvmStakingPool failed: %s", err.Error())
 			}
 
 			stakingTokenMint := stakingPoolDetail.TokenMint

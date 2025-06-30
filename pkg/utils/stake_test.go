@@ -48,7 +48,7 @@ func TestStaking(t *testing.T) {
 			RewardRate:       1,
 			TotalReward:      0,
 			UnbondingSeconds: 60,
-			RewardAlgorithm:  staking_program.RewardAlgorithmFixedRate,
+			RewardAlgorithm:  staking_program.RewardAlgorithmFixedPerTokenPerSecond,
 			Index:            0,
 		}, user.PublicKey(), user.PublicKey(), tokenMint, stakingPool, adminTokenAccount, poolTokenAccount,
 		solana.TokenProgramID, solana.SPLAssociatedTokenAccountProgramID, solana.SystemProgramID)
@@ -122,7 +122,7 @@ func TestSvmLsd(t *testing.T) {
 			RewardRate:       1000,
 			TotalReward:      1000000000000,
 			UnbondingSeconds: 600,
-			RewardAlgorithm:  staking_program.RewardAlgorithmFixedRate,
+			RewardAlgorithm:  staking_program.RewardAlgorithmFixedPerTokenPerSecond,
 			Index:            initStakingParamIndex,
 		}, user.PublicKey(), user.PublicKey(), stakingTokenMint, stakingPool, adminStakingTokenAccount, stakingPoolStakingTokenAccount,
 		solana.TokenProgramID, solana.SPLAssociatedTokenAccountProgramID, solana.SystemProgramID)

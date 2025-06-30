@@ -426,6 +426,16 @@
           },
           {
             "name": "rewardRate",
+            "docs": [
+              "For FixedPerTokenPerSecond: per staked smallest unit per second.",
+              "",
+              "Reward rate is scaled by 1e12 to support fractional values.",
+              "Reward rate is in **smallest token unit per second(after scaling)**.",
+              "",
+              "For FixedTotalPerSecond: total reward per second in smallest units.",
+              "",
+              "Reward rate is in **smallest token unit per second**."
+            ],
             "type": "u64"
           },
           {

@@ -9,14 +9,23 @@ import (
 )
 
 type StakingPool struct {
-	Creator             ag_solanago.PublicKey
-	Index               uint8
-	Admin               ag_solanago.PublicKey
-	PendingAdmin        ag_solanago.PublicKey
-	PoolSeedBump        uint8
-	TokenMint           ag_solanago.PublicKey
-	MinStakeAmount      uint64
-	UnbondingSeconds    uint64
+	Creator          ag_solanago.PublicKey
+	Index            uint8
+	Admin            ag_solanago.PublicKey
+	PendingAdmin     ag_solanago.PublicKey
+	PoolSeedBump     uint8
+	TokenMint        ag_solanago.PublicKey
+	MinStakeAmount   uint64
+	UnbondingSeconds uint64
+
+	// For FixedPerTokenPerSecond: per staked smallest unit per second.
+	//
+	// Reward rate is scaled by 1e12 to support fractional values.
+	// Reward rate is in **smallest token unit per second(after scaling)**.
+	//
+	// For FixedTotalPerSecond: total reward per second in smallest units.
+	//
+	// Reward rate is in **smallest token unit per second**.
 	RewardRate          uint64
 	RewardAlgorithm     RewardAlgorithm
 	TotalStake          uint64
