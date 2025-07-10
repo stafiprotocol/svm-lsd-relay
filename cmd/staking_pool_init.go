@@ -142,7 +142,7 @@ func stakingPoolInitCmd() *cobra.Command {
 					RewardAlgorithm:  cfg.RewardAlgorithm,
 					Index:            cfg.Index,
 				}, adminAccount.PublicKey(), feePayerAccount.PublicKey(), stakingTokenMint, stakingPool, adminTokenAccount, stakingPoolTokenAccount,
-				solana.TokenProgramID, solana.SPLAssociatedTokenAccountProgramID, solana.SystemProgramID)
+				tokenProgramId, solana.SPLAssociatedTokenAccountProgramID, solana.SystemProgramID)
 
 			latestBlockHashRes, err := rpcClient.GetLatestBlockhash(context.Background(), rpc.CommitmentConfirmed)
 			if err != nil {
